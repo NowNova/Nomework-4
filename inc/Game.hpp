@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <iostream>
 
 namespace saa {
 	class Game {
@@ -61,17 +62,21 @@ namespace saa {
 				m_l[i].Setup(l1, l2, l3, l4);
 			}
 		}
-		void Life() 
+		void Life()
 		{
 			while (m_window.isOpen())
 			{
 				sf::Event event;
 				while (m_window.pollEvent(event))
 				{
-					if (event.type == sf::Event::Closed)
+					if (event.type == sf::Event::Closed) {
 						m_window.close();
+						//delete[] m_c;
+						//delete[] m_r;
+						//delete[] m_t;
+						//delete[] m_l;
+					}
 				}
-
 				m_window.clear();
 				for (int i = 0; i < m_n; i++) {
 					m_window.draw(m_c[i].Get());
@@ -81,6 +86,14 @@ namespace saa {
 				}
 				m_window.display();
 			}
+		}
+
+		~Game()
+		{
+			delete[] m_c;
+			delete[] m_r;
+			delete[] m_t;
+			delete[] m_l;
 		}
 	};
 }
